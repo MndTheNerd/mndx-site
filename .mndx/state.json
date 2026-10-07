@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "counter": 3,
+  "counter": 4,
   "active": null,
   "autopilot": {
     "active": true,
@@ -47,6 +47,14 @@
       "dir": "docs/features/003-seo-and-sharing",
       "outcome": "shipped",
       "at": "2026-10-07T11:25:35.640Z"
+    },
+    {
+      "id": "004-v1-0-0",
+      "kind": "release",
+      "title": "v1.0.0",
+      "dir": "docs/releases/004-v1-0-0",
+      "outcome": "shipped",
+      "at": "2026-10-07T11:31:32.260Z"
     }
   ]
 }

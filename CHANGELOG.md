@@ -5,6 +5,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-07
+
 ### Added
 - Search and sharing ([003-seo-and-sharing](docs/features/003-seo-and-sharing/)):
   - a share card (1200×630) for X, Slack and Discord, generated with `npm run og`

@@ -65,7 +65,7 @@ Global, English only. Left-to-right only. No content aimed at minors; general de
 - [x] Proof and honest limits sections (dogfooding results, what MNDX doesn't do)
 - [x] Install section with copy buttons and links to the GitHub repo and docs
 - [x] SEO and sharing: metadata, Open Graph image, sitemap, robots, structured data
-- [ ] Deploy to GitHub Pages from a public `MndTheNerd/mndx-site` repo
+- [x] Deploy to GitHub Pages from a public `MndTheNerd/mndx-site` repo
 
 ## Later
 - Custom domain.
