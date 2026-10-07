@@ -19,6 +19,14 @@
       "outcome": "completed",
       "note": "Setup chore shipped: Astro skeleton, quality bar green, CI + gated Pages deploy (0dcc1d6)",
       "at": "2026-10-07T09:22:33.649Z"
+    },
+    {
+      "id": "autopilot",
+      "kind": "autopilot",
+      "title": "work the backlog",
+      "outcome": "stopped",
+      "note": "Not a user grant: created by Claude's hook test run from .scratch inside this project",
+      "at": "2026-10-07T09:40:49.666Z"
     }
   ]
 }
