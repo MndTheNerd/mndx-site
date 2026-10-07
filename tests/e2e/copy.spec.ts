@@ -11,10 +11,23 @@ async function loadWithFrozenClock(page: import('@playwright/test').Page) {
   await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
 }
 
+/**
+ * Makes every clipboard write slow with real same-origin I/O that the fake clock can't skip, the way a slow CI
+ * runner is. Tests must then wait for each copy to finish before advancing the clock (fix 005).
+ */
+const slowClipboard = () => {
+  const original = navigator.clipboard.writeText.bind(navigator.clipboard);
+  navigator.clipboard.writeText = async (text: string) => {
+    for (let i = 0; i < 5; i += 1) await fetch('favicon.svg', { cache: 'no-store' });
+    return original(text);
+  };
+};
+
 test.describe('with clipboard access', () => {
   test.use({ permissions: ['clipboard-read', 'clipboard-write'] });
 
   test.beforeEach(async ({ page }) => {
+    await page.addInitScript(slowClipboard);
     await loadWithFrozenClock(page);
   });
 
@@ -29,8 +42,10 @@ test.describe('with clipboard access', () => {
     const button = command.getByRole('button');
     await button.click();
 
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(MARKETPLACE);
+    // "Copied" appears in the same synchronous block that schedules the reset timer, so once it shows,
+    // the clock may be advanced. The clipboard itself is written just before, so poll for it.
     await expect(button).toHaveText('Copied');
+    await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(MARKETPLACE);
     await expect(command.getByRole('status')).toHaveText('Copied');
 
     await page.clock.runFor(1999);
@@ -63,13 +78,32 @@ test.describe('with clipboard access', () => {
 
   test('restarts the 2 second timer on a second copy (AC2)', async ({ page }) => {
     const command = block(page, MARKETPLACE);
+    const label = command.locator('[data-copy-label]');
     await command.getByRole('button').click();
+    await expect(label).toHaveText('Copied'); // first activation's timer now exists
     await page.clock.runFor(1500);
+
+    // The label already reads "Copied", so it can't show when the second activation finishes. Watch the status
+    // instead: arm an observer in the page, do a real click, then wait for the status to be set to "Copied".
+    type WithSecondCopy = Window & { secondCopy?: Promise<void> };
+    await command.getByRole('status').evaluate((status) => {
+      (window as WithSecondCopy).secondCopy = new Promise<void>((resolve) => {
+        const observer = new MutationObserver(() => {
+          if (status.textContent === 'Copied') {
+            observer.disconnect();
+            resolve();
+          }
+        });
+        observer.observe(status, { childList: true, characterData: true, subtree: true });
+      });
+    });
     await command.getByRole('button').click();
+    await page.evaluate(() => (window as WithSecondCopy).secondCopy);
+
     await page.clock.runFor(1500);
-    await expect(command.locator('[data-copy-label]')).toHaveText('Copied');
+    await expect(label).toHaveText('Copied');
     await page.clock.runFor(500);
-    await expect(command.locator('[data-copy-label]')).toHaveText('Copy');
+    await expect(label).toHaveText('Copy');
   });
 
   for (const key of ['Enter', 'Space']) {
@@ -82,8 +116,8 @@ test.describe('with clipboard access', () => {
       }
       await expect(button).toBeFocused();
       await page.keyboard.press(key);
-      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(MARKETPLACE);
       await expect(block(page, MARKETPLACE).locator('[data-copy-label]')).toHaveText('Copied');
+      await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(MARKETPLACE);
     });
   }
 });

@@ -1,12 +1,8 @@
 {
   "version": 1,
-  "counter": 4,
+  "counter": 5,
   "active": null,
-  "autopilot": {
-    "active": true,
-    "goal": "have the website live",
-    "grantedAt": "2026-10-07T10:00:29.887Z"
-  },
+  "autopilot": null,
   "history": [
     {
       "id": "001-project-setup",
@@ -55,6 +51,22 @@
       "dir": "docs/releases/004-v1-0-0",
       "outcome": "shipped",
       "at": "2026-10-07T11:31:32.260Z"
+    },
+    {
+      "id": "autopilot",
+      "kind": "autopilot",
+      "title": "have the website live",
+      "outcome": "stopped",
+      "note": "user typed /mndx:plan",
+      "at": "2026-10-07T12:10:22.056Z"
+    },
+    {
+      "id": "005-copy-timer-e2e-test-races-the-clipboard",
+      "kind": "fix",
+      "title": "copy timer e2e test races the clipboard write on slow CI",
+      "dir": "docs/fixes/005-copy-timer-e2e-test-races-the-clipboard",
+      "outcome": "shipped",
+      "at": "2026-10-07T14:30:32.463Z"
     }
   ]
 }

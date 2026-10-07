@@ -41,6 +41,10 @@ These exact commands must pass before anything ships:
 - `src/content/site.ts` stays import-free, because `npm run og` loads it with Node's type stripping.
 - Stop any `astro preview` / `astro dev` you started before running `npm run test:e2e`. On Windows a running
   server keeps `dist/` locked, and the e2e build fails with "webServer was not able to start".
+- E2E tests that use the fake clock (`page.clock`) must wait for each async step to finish before calling
+  `runFor`: assert the product's own signal first (for example the copy label reading "Copied"), then advance
+  time. The copy specs run under a slowed clipboard (`slowClipboard` in `copy.spec.ts`) so a missing wait fails
+  on any machine, not only on slow CI.
 - Packages are pinned to exact versions. TypeScript stays on 6.0.x until `@astrojs/check` and
   `typescript-eslint` support 7.
 

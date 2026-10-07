@@ -5,6 +5,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+- The copy-button e2e tests raced a slow clipboard write on slower machines, which failed the first GitHub
+  deploy's quality bar and blocked publishing. The tests now wait for each copy to finish before advancing the
+  clock, and run under a deliberately slowed clipboard so the race fails locally.
+  ([005-copy-timer-e2e-test-races-the-clipboard](docs/fixes/005-copy-timer-e2e-test-races-the-clipboard/))
+
 ## [1.0.0] - 2026-10-07
 
 ### Added
