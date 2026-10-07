@@ -70,7 +70,21 @@ work on github please", then the autopilot goal "have the website live". So this
 fails, nothing is live: fix forward and re-push.
 
 ## Deploy result
-_Filled in after the deploy._
+**Live:** https://mndthenerd.github.io/mndx-site/ (deployed 2026-10-07).
+
+- **First attempt failed, nothing was published.** The first deploy run (37614814559) was for `v1.0.0`
+  (`9d8e628`). Its quality bar failed at `copy.spec.ts:72`: a timing race in an e2e test, not a site defect.
+  The gate skipped build and deploy, as designed.
+- **Deployed commit:** `73af3c7`, the fix for that test (item 005, test-only). Deploy run **37637331398**:
+  quality-bar, build and deploy all succeeded.
+- **Tag:** `v1.0.0` deliberately stays on `9d8e628`, whose site code is identical to what's live. Only test
+  code changed between the tag and the deployed commit.
+- **Smoke check (RUNBOOK), all passed:** page 200 with the exact headline; stylesheet
+  `/mndx-site/_astro/index.CN1EvrKI.css` and `overpass-latin-400-normal.BpeLJ0bs.woff2` both 200; `og.png`
+  200 as `image/png` (39,278 bytes); `sitemap-index.xml` 200; in a real browser the copy buttons are visible,
+  the walkthrough finishes, and there are 0 console errors and 0 CSP violations.
+- **Lighthouse mobile on the live URL:** Performance 100, Accessibility 100, Best Practices 100, SEO 100;
+  LCP 1.2 s, CLS 0.039.
 
 ## Rollback
 - **First deploy fails:** nothing is live. Fix forward, then re-push (or re-run with
