@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .post { fill: #16222d; }
+    .lamp { fill: #17744c; }
+    @media (prefers-color-scheme: dark) {
+      .post { fill: #e3e9ec; }
+      .lamp { fill: #3fbf83; }
+    }
+  </style>
+  <rect class="post" x="14.5" y="14" width="3" height="16" rx="1"/>
+  <circle class="post" cx="16" cy="10" r="9"/>
+  <circle class="lamp" cx="16" cy="10" r="5.5"/>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mndthenerd.github.io/mndx-site/sitemap-index.xml

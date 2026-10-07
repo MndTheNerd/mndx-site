@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "counter": 1,
+  "active": null,
+  "autopilot": {
+    "active": true,
+    "goal": "finish 001-project-setup",
+    "grantedAt": "2026-10-07T08:54:02.866Z"
+  },
+  "history": [
+    {
+      "id": "001-project-setup",
+      "kind": "chore",
+      "title": "project setup",
+      "dir": "docs/chores/001-project-setup",
+      "outcome": "shipped",
+      "at": "2026-10-07T09:21:29.472Z"
+    }
+  ]
+}

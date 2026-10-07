@@ -1,0 +1,11 @@
+dist/
+.astro/
+.scratch/
+.mndx/
+node_modules/
+test-results/
+playwright-report/
+package-lock.json
+docs/
+CHANGELOG.md
+CLAUDE.md
