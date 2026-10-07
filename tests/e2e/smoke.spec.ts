@@ -1,23 +1,17 @@
-import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expect, test } from './fixtures';
 
 for (const colorScheme of ['light', 'dark'] as const) {
   test.describe(`${colorScheme} color scheme`, () => {
     test.use({ colorScheme });
 
+    // Console and page errors fail the test through the shared fixture.
     test('loads under the base path with one h1 and no console errors', async ({ page }) => {
-      const errors: string[] = [];
-      page.on('console', (message) => {
-        if (message.type() === 'error') errors.push(message.text());
-      });
-      page.on('pageerror', (error) => errors.push(error.message));
-
       const response = await page.goto('./');
 
       expect(response?.status()).toBe(200);
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page).toHaveTitle(/MNDX/);
-      expect(errors).toEqual([]);
     });
 
     test('has no WCAG 2.2 AA violations', async ({ page }) => {

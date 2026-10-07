@@ -1,0 +1,25 @@
+---
+import Section from './Section.astro';
+import { proofParagraphs } from '../content/proof';
+import { repoFile } from '../content/site';
+---
+
+<Section id="proof" title="Proof">
+  <div class="prose">
+    {proofParagraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+    <p>
+      Every issue the run found in MNDX itself was fixed. The details are in the{' '}
+      <a href={repoFile('CHANGELOG.md')}>changelog</a>.
+    </p>
+  </div>
+</Section>
+
+<style>
+  .prose {
+    display: grid;
+    gap: var(--space-3);
+    max-width: var(--measure);
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import Section from './Section.astro';
+import { limits } from '../content/proof';
+---
+
+<Section id="limits" title="Limits">
+  <ul class="limits">
+    {limits.map((limit) => (
+      <li>{limit.text}</li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .limits {
+    display: grid;
+    gap: var(--space-3);
+    max-width: var(--measure);
+    padding-left: 1.25rem;
+  }
+</style>

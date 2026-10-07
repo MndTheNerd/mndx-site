@@ -1,0 +1,65 @@
+---
+import CopyCommand from './CopyCommand.astro';
+import TrackDiagram from './TrackDiagram.astro';
+import { site } from '../content/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="intro">
+    <h1 id="hero-title">Claude doesn't write code until you say go.</h1>
+    <p class="lead">
+      MNDX is a Claude Code plugin that runs every change through spec, plan, build, verify and ship. Claude
+      can't touch your code until you approve the spec and the plan, and it can't ship until your real tests
+      pass.
+    </p>
+  </div>
+  <div class="install" role="group" aria-label="Install MNDX">
+    {site.installCommands.map((command) => (
+      <CopyCommand command={command} />
+    ))}
+  </div>
+  <div class="diagram-slot">
+    <TrackDiagram />
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    gap: var(--space-4) var(--space-5);
+    padding-block: var(--space-4) var(--space-6);
+  }
+
+  h1 {
+    font-size: var(--step-5);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 14ch;
+  }
+
+  .lead {
+    margin-top: var(--space-4);
+    max-width: 52ch;
+    font-size: var(--step-1);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink-muted);
+  }
+
+  .install {
+    display: grid;
+    gap: var(--space-2);
+    align-content: end;
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    }
+
+    .diagram-slot {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

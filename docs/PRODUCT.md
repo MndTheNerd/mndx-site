@@ -57,13 +57,13 @@ Not applicable: auth, payments, data storage, i18n, messaging, AI, app-store, in
 Global, English only. Left-to-right only. No content aimed at minors; general developer audience.
 
 ## Scope of v1
-- [ ] Landing page: hero with an animated walkthrough of the pipeline and the approval gate
+- [x] Landing page: hero with an animated walkthrough of the pipeline and the approval gate
       (spec → approve → plan → approve → build → verify → ship), readable as static content without JS
-- [ ] "What changes" section: hard gate, verified shipping, concern router, independent reviewers,
+- [x] "What changes" section: hard gate, verified shipping, concern router, independent reviewers,
       existing projects, autopilot
-- [ ] Command reference for all `/mndx:*` commands
-- [ ] Proof and honest limits sections (dogfooding results, what MNDX doesn't do)
-- [ ] Install section with copy buttons and links to the GitHub repo and docs
+- [x] Command reference for all `/mndx:*` commands
+- [x] Proof and honest limits sections (dogfooding results, what MNDX doesn't do)
+- [x] Install section with copy buttons and links to the GitHub repo and docs
 - [ ] SEO and sharing: metadata, Open Graph image, sitemap, robots, structured data
 - [ ] Deploy to GitHub Pages from a public `MndTheNerd/mndx-site` repo
 
@@ -72,6 +72,8 @@ Global, English only. Left-to-right only. No content aimed at minors; general de
 - Cookieless analytics (Plausible or GoatCounter) plus a short privacy note.
 - A short screen recording of a real MNDX session.
 - Pull the command table and version number from the mndx repo at build time so they never drift.
+  For now, `tests/fixtures/mndx-readme.md` is a pinned snapshot that is refreshed by hand.
+- A CSS fallback that shows the diagram's final state if the walkthrough script never starts.
 
 ## Assumptions
 Recorded from the init interview: the user answered the hosting question ("deploy it on GitHub") and the repo

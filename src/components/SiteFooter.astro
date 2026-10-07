@@ -1,0 +1,57 @@
+---
+import { repoFile, site } from '../content/site';
+---
+
+<footer class="site-footer">
+  <div class="inner">
+    <p>
+      MNDX is MIT licensed (<a href={repoFile('LICENSE')}>license</a>).
+    </p>
+    <ul class="links">
+      <li>
+        <a href={site.repoUrl}>Repository</a>
+      </li>
+      <li>
+        <a href={repoFile('docs/GETTING-STARTED.md')}>Getting Started</a>
+      </li>
+      <li>
+        <a href={repoFile('CHANGELOG.md')}>Changelog</a>
+      </li>
+    </ul>
+    <p class="disclaimer">This site isn't affiliated with Anthropic.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--rule);
+    background: var(--panel);
+    font-size: var(--step--1);
+  }
+
+  .inner {
+    display: grid;
+    gap: var(--space-2);
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: var(--space-5) var(--gutter);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+  }
+
+  .disclaimer {
+    color: var(--ink-muted);
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+// The hero's signal-box diagram (spec 002, AC5–AC8; DESIGN-SYSTEM.md "Track diagram").
+// Base CSS is the final state, so it is correct without JavaScript, with reduced motion and in old browsers.
+// Only scripting + motion-allowed + data-state="idle" shows the initial state; walkthrough.ts plays it.
+const stations = ['spec', 'plan', 'build', 'verify', 'ship'];
+
+// Horizontal layout (≥ 900 px)
+const hx = (i: number) => 60 + i * 220;
+const H_TRACK_Y = 96;
+// Vertical layout (< 900 px)
+const vy = (i: number) => 36 + i * 116;
+const V_TRACK_X = 40;
+// Signals sit midway along the first two segments.
+const signals = [0, 1];
+---
+
+<figure class="diagram" id="walkthrough" data-walkthrough data-state="idle">
+  <svg class="track horizontal" viewBox="0 0 1000 150" aria-hidden="true" focusable="false">
+    <line class="rail" x1={hx(0)} y1={H_TRACK_Y} x2={hx(4)} y2={H_TRACK_Y}></line>
+    {stations.slice(0, -1).map((_, i) => (
+      <line
+        class="segment"
+        data-segment={i}
+        pathLength="1"
+        x1={hx(i)}
+        y1={H_TRACK_Y}
+        x2={hx(i + 1)}
+        y2={H_TRACK_Y}
+      />
+    ))}
+    {signals.map((i) => {
+      const x = (hx(i) + hx(i + 1)) / 2;
+      return (
+        <g class="signal" data-signal={i}>
+          <line class="post" x1={x} y1={H_TRACK_Y} x2={x} y2={58} />
+          <circle class="lamp" cx={x} cy={46} r="14" />
+          <rect class="bar" x={x - 8} y={43} width="16" height="6" />
+          <path class="arrow" d={`M${x - 7} ${46}h11M${x} ${40}l6 6-6 6`} />
+          <text class="approve" data-approve={i} x={x} y={18} text-anchor="middle">
+            /mndx:approve
+          </text>
+        </g>
+      );
+    })}
+    {stations.map((name, i) => (
+      <g class="station" data-station={i}>
+        <circle cx={hx(i)} cy={H_TRACK_Y} r="11" />
+        <text x={hx(i)} y={H_TRACK_Y + 40} text-anchor="middle">
+          {name}
+        </text>
+      </g>
+    ))}
+  </svg>
+
+  <svg class="track vertical" viewBox="0 0 320 540" aria-hidden="true" focusable="false">
+    <line class="rail" x1={V_TRACK_X} y1={vy(0)} x2={V_TRACK_X} y2={vy(4)}></line>
+    {stations.slice(0, -1).map((_, i) => (
+      <line
+        class="segment"
+        data-segment={i}
+        pathLength="1"
+        x1={V_TRACK_X}
+        y1={vy(i)}
+        x2={V_TRACK_X}
+        y2={vy(i + 1)}
+      />
+    ))}
+    {signals.map((i) => {
+      const y = (vy(i) + vy(i + 1)) / 2;
+      return (
+        <g class="signal" data-signal={i}>
+          <line class="post" x1={V_TRACK_X} y1={y} x2={V_TRACK_X + 52} y2={y} />
+          <circle class="lamp" cx={V_TRACK_X + 66} cy={y} r="14" />
+          <rect class="bar" x={V_TRACK_X + 58} y={y - 3} width="16" height="6" />
+          <path class="arrow" d={`M${V_TRACK_X + 59} ${y}h11M${V_TRACK_X + 66} ${y - 6}l6 6-6 6`} />
+          <text class="approve" data-approve={i} x={V_TRACK_X + 92} y={y + 6}>
+            /mndx:approve
+          </text>
+        </g>
+      );
+    })}
+    {stations.map((name, i) => (
+      <g class="station" data-station={i}>
+        <circle cx={V_TRACK_X} cy={vy(i)} r="11" />
+        <text x={V_TRACK_X + 26} y={vy(i) + 7}>
+          {name}
+        </text>
+      </g>
+    ))}
+  </svg>
+
+  <ol class="visually-hidden">
+    <li>Spec: Claude writes down the change.</li>
+    <li>/mndx:approve: you approve the spec.</li>
+    <li>Plan: Claude writes the technical plan.</li>
+    <li>/mndx:approve: you approve the plan, and only now can Claude edit code.</li>
+    <li>Build: test-first.</li>
+    <li>Verify: the real quality bar, plus independent review.</li>
+    <li>Ship: docs, changelog and a local commit.</li>
+  </ol>
+
+  <figcaption>
+    <span>
+      Every change runs this line. Both signals stay red until you type <code>/mndx:approve</code>.
+    </span>
+    <button type="button" class="replay" data-replay hidden>
+      Run it again
+    </button>
+  </figcaption>
+</figure>
+
+<script>
+  import { initWalkthrough } from '../scripts/walkthrough';
+
+  for (const figure of document.querySelectorAll<HTMLElement>('[data-walkthrough]')) initWalkthrough(figure);
+</script>
+
+<style>
+  .diagram {
+    margin: 0;
+    padding: var(--space-4) 0 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .track {
+    width: 100%;
+    height: auto;
+    font-family: var(--font-sans);
+    overflow: visible;
+  }
+
+  .horizontal {
+    display: none;
+  }
+
+  .vertical {
+    max-width: 22rem;
+  }
+
+  @media (min-width: 900px) {
+    .horizontal {
+      display: block;
+    }
+
+    .vertical {
+      display: none;
+    }
+  }
+
+  .rail {
+    stroke: var(--rule);
+    stroke-width: 4;
+  }
+
+  .post {
+    stroke: var(--ink);
+    stroke-width: 3;
+  }
+
+  .station text {
+    font-size: 22px;
+    font-weight: 800;
+    fill: var(--ink);
+  }
+
+  .approve {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    fill: var(--ink-muted);
+    transition: fill var(--dur-quick) ease;
+  }
+
+  .bar {
+    fill: var(--board);
+  }
+
+  .arrow {
+    fill: none;
+    stroke: var(--board);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Final state (base): route drawn, stations reached, signals proceed. */
+  .segment {
+    stroke: var(--route);
+    stroke-width: 4;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset var(--dur-step) linear;
+  }
+
+  .station circle {
+    fill: var(--ink);
+    stroke: var(--ink);
+    stroke-width: 3;
+    transition: fill var(--dur-quick) ease;
+  }
+
+  .lamp {
+    fill: var(--proceed);
+    transition: fill var(--dur-quick) ease;
+  }
+
+  .bar {
+    display: none;
+  }
+
+  /* Initial state: only with scripting and motion, before the walkthrough plays; and during a run until each
+     element is reached. */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .diagram[data-state='idle'] .segment {
+      stroke-dashoffset: 1;
+    }
+
+    .diagram[data-state='idle'] .station:not([data-station='0']) circle {
+      fill: var(--board);
+    }
+
+    .diagram[data-state='idle'] .lamp {
+      fill: var(--stop);
+    }
+
+    .diagram[data-state='idle'] .bar {
+      display: inline;
+    }
+
+    .diagram[data-state='idle'] .arrow {
+      display: none;
+    }
+  }
+
+  .diagram[data-state='playing'] .segment:not(.is-drawn) {
+    stroke-dashoffset: 1;
+  }
+
+  .diagram[data-state='playing'] .station:not(.is-reached, [data-station='0']) circle {
+    fill: var(--board);
+  }
+
+  .diagram[data-state='playing'] .signal:not(.is-clear) .lamp {
+    fill: var(--stop);
+  }
+
+  .diagram[data-state='playing'] .signal:not(.is-clear) .bar {
+    display: inline;
+  }
+
+  .diagram[data-state='playing'] .signal:not(.is-clear) .arrow {
+    display: none;
+  }
+
+  .diagram[data-state='playing'] .approve.is-lit {
+    fill: var(--route);
+  }
+
+  /* One frame without transitions so a replay snaps back instead of animating backwards. */
+  .diagram[data-resetting] * {
+    transition: none !important;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin-top: var(--space-3);
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+  }
+
+  .replay {
+    min-height: 2.75rem;
+    padding: var(--space-1) var(--space-3);
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-s);
+    cursor: pointer;
+  }
+
+  .replay[aria-disabled='true'] {
+    color: var(--ink-muted);
+    border-color: var(--rule);
+    cursor: default;
+  }
+</style>

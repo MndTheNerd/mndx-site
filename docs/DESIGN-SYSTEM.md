@@ -8,8 +8,8 @@ that world: a signal-box track diagram, enamel panel colors, signage lettering. 
 (a gate you can't talk your way past), and it is not a terminal-and-neon developer page.
 
 The boldness is spent in one place: the **hero track diagram**. A change travels along the line
-spec → plan → build → verify → ship and stops at two red signals. `/mndx:approve` is typed and the signal
-turns green. Everything below the hero is quiet, typographic and disciplined.
+spec → plan → build → verify → ship and stops at two red signals. Each signal's `/mndx:approve` label lights up
+and the signal turns green. Everything below the hero is quiet, typographic and disciplined.
 
 Why not the obvious options:
 - Dark terminal with a green accent: every AI dev tool looks like that, and it says "CLI", not "discipline".
@@ -101,6 +101,6 @@ Numbered markers are used only where the content is a sequence: the pipeline sta
   ("Copy: claude plugin install mndx@mndx") and a polite live region.
 - **Rules list:** `<dl>`-style pairs. The title is `--step-1`, the body is `--step-0` muted. A small signal glyph
   (green arrow) marks each rule. It's decorative and `aria-hidden`.
-- **Command table:** a real `<table>` with a caption. "You only" commands carry a red bar glyph plus the text
-  "you only".
+- **Command table:** a real `<table>` with a caption. "You only" commands carry a red bar glyph (`aria-hidden`)
+  plus the text "You only".
 - **Focus:** 3 px `--route` outline, 2 px offset, on every interactive element.

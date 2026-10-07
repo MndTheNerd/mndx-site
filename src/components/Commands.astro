@@ -1,0 +1,114 @@
+---
+import Section from './Section.astro';
+import { commands } from '../content/commands';
+---
+
+<Section id="commands" title="Commands">
+  <div class="table-wrap" tabindex="0" role="region" aria-labelledby="commands-caption">
+    <table>
+      <caption id="commands-caption">Every MNDX command. You run these in a Claude Code session.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Command</th>
+          <th scope="col">What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        {commands.map((command) => (
+          <tr>
+            <th scope="row">
+              <code>
+                <span class="name">{command.name}</span>
+                {command.args && ' '}
+                {/* Arguments may wrap after each "|", so the table fits a phone; names never break. */}
+                {command.args.split('|').map((part, i) => (
+                  <>
+                    {i > 0 && (
+                      <>
+                        |<wbr />
+                      </>
+                    )}
+                    {part}
+                  </>
+                ))}
+              </code>
+            </th>
+            <td>
+              {command.userOnly && (
+                <>
+                  <span class="you-only">
+                    <span class="bar" aria-hidden="true" />
+                    You only.
+                  </span>{' '}
+                </>
+              )}
+              {command.summary}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Section>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+  }
+
+  caption {
+    padding-bottom: var(--space-3);
+    text-align: left;
+    color: var(--ink-muted);
+  }
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    background: var(--panel);
+  }
+
+  th,
+  td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    text-align: left;
+  }
+
+  tbody th {
+    font-weight: 400;
+  }
+
+  .name {
+    white-space: nowrap;
+  }
+
+  /* Keeps descriptions readable; on the narrowest phones the wrapper scrolls instead of squeezing them. */
+  td {
+    min-width: 9rem;
+  }
+
+  .you-only {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-right: var(--space-2);
+    font-weight: 600;
+    color: var(--stop);
+  }
+
+  .bar {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.25rem;
+    background: var(--stop);
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+interface Props {
+  command: string;
+}
+
+const { command } = Astro.props;
+---
+
+<div class="command" data-copy>
+  <code class="text" data-copy-text>
+    {command}
+  </code>
+  <button type="button" class="copy" data-copy-button aria-label={`Copy: ${command}`} hidden>
+    <span data-copy-label>Copy</span>
+  </button>
+  <span class="status" data-copy-status role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  import { initCopyButtons } from '../scripts/copy';
+
+  initCopyButtons(document);
+</script>
+
+<style>
+  .command {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-s);
+    max-width: 100%;
+  }
+
+  .text {
+    flex: 1 1 16rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .copy {
+    min-width: 5.5rem;
+    min-height: 2.75rem;
+    padding: var(--space-1) var(--space-3);
+    font: inherit;
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--ink);
+    background: var(--board);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-quick) ease,
+      color var(--dur-quick) ease;
+  }
+
+  .copy:hover {
+    border-color: var(--route);
+  }
+
+  .copy[data-state='copied'] {
+    color: var(--board);
+    background: var(--proceed);
+    border-color: var(--proceed);
+  }
+
+  /* Success is announced by the button label; only the failure hint is shown as text. */
+  .status:not([data-kind='failed']) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .status[data-kind='failed'] {
+    flex-basis: 100%;
+    font-size: var(--step--1);
+    color: var(--ink-muted);
+  }
+</style>

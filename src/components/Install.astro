@@ -1,0 +1,53 @@
+---
+import Section from './Section.astro';
+import CopyCommand from './CopyCommand.astro';
+import { repoFile, site } from '../content/site';
+
+const [addMarketplace, installPlugin] = site.installCommands;
+---
+
+<Section id="install" title="Install">
+  <p class="requirements">You need {site.requirements.join(', ')}.</p>
+  <ol class="steps">
+    <li>
+      <p>Add the MNDX marketplace:</p>
+      <CopyCommand command={addMarketplace} />
+    </li>
+    <li>
+      <p>Install the plugin:</p>
+      <CopyCommand command={installPlugin} />
+    </li>
+    <li>
+      <p>In a Claude Code session, install the community skills, then start a new session:</p>
+      <CopyCommand command={site.setupCommand} />
+    </li>
+  </ol>
+  <p>
+    The full walkthrough is in the <a href={repoFile('docs/GETTING-STARTED.md')}>Getting Started guide</a>.
+  </p>
+</Section>
+
+<style>
+  .requirements {
+    margin-bottom: var(--space-4);
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+    padding-left: 1.5rem;
+  }
+
+  .steps li {
+    padding-left: var(--space-1);
+  }
+
+  .steps p {
+    margin-bottom: var(--space-2);
+  }
+
+  .steps li::marker {
+    font-weight: 800;
+  }
+</style>

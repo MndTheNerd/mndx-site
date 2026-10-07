@@ -45,6 +45,8 @@ pre {
 }
 
 a {
+  /* Grows inline links' hit area to at least 24 px without changing line spacing (WCAG 2.5.8). */
+  padding-block: 0.2em;
   color: inherit;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
@@ -52,6 +54,22 @@ a {
 
 a:hover {
   text-decoration-color: var(--route);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 :focus-visible {

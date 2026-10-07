@@ -5,8 +5,9 @@
 ## Overview
 A static site built by Astro at build time into plain HTML, CSS, fonts and images. There is no server, no
 database and no runtime API. The only JavaScript sent to the browser is two small progressive enhancements:
-the copy-to-clipboard buttons and the hero walkthrough animation. Without JavaScript the page is complete:
-commands are selectable text and the walkthrough renders as a static step list.
+the copy-to-clipboard buttons and the hero walkthrough animation (about 1.4 KB gzip together). Without
+JavaScript the page is complete: commands are selectable text, buttons stay hidden, and the track diagram
+renders in its final state. A visually hidden ordered list gives screen readers the same steps.
 
 ```
 content (src/content/*.ts, typed)  ─┐
@@ -34,22 +35,26 @@ design tokens (src/styles/tokens.css)┘                         │
 src/
   pages/index.astro        # the one page: assembles sections, nothing else
   layouts/Base.astro       # <head>: meta, OG, canonical, JSON-LD, fonts, theme tokens
-  components/              # one .astro file per section (Hero, Changes, Commands, Proof, Limits, Install)
-                           # plus primitives (CopyCommand, Walkthrough)
-  content/                 # typed data the page renders: commands.ts, features.ts, site.ts (URLs, version)
+  components/              # one .astro file per section (SiteHeader, Hero, Rules, Commands, Proof, Limits,
+                           # Install, SiteFooter) plus primitives (Section, CopyCommand, TrackDiagram)
+  content/                 # typed data the page renders: site.ts, commands.ts, rules.ts, proof.ts
+  scripts/                 # browser modules: copy.ts, walkthrough.ts (pure logic + DOM wiring)
   lib/                     # small pure helpers (e.g. url building with the base path), unit-tested
   styles/tokens.css        # design tokens: color (light + dark), type scale, spacing, motion
   styles/global.css        # reset, base element styles
 public/                    # og.png, favicon.svg, robots.txt
-tests/unit/                # Vitest
-tests/e2e/                 # Playwright against `astro preview`
+tests/unit/                # Vitest, including content.test.ts against the vendored README
+tests/fixtures/            # mndx-readme.md: the MNDX README snapshot the page content is checked against
+tests/e2e/                 # Playwright against `astro preview`; every spec imports `test` from fixtures.ts
 .github/workflows/         # ci.yml (quality bar), deploy.yml (Pages)
 docs/                      # PRODUCT, ARCHITECTURE, DESIGN-SYSTEM, adr/, BACKLOG, item docs
 ```
 
 ## Key flows
-1. **Visit:** browser requests `/mndx-site/` → static HTML with inlined critical CSS → fonts load with swap →
-   the walkthrough script starts only if `prefers-reduced-motion` is not `reduce` and the hero is in view.
+1. **Visit:** browser requests `/mndx-site/` → static HTML with inlined CSS → fonts load with swap. The diagram
+   paints in its initial state only under `@media (scripting: enabled) and (prefers-reduced-motion:
+   no-preference)`, and is final otherwise. The walkthrough plays once when enough of the diagram is visible
+   (half of it, or half the viewport if it's taller), and "Run it again" replays it.
 2. **Copy a command:** user activates a copy button (click, Enter, Space or tap) → `navigator.clipboard.writeText`
    → the button's live region announces "Copied" → reverts after 2 s. If the Clipboard API is unavailable the
    command text is selected so the user can copy it manually.
@@ -58,9 +63,10 @@ docs/                      # PRODUCT, ARCHITECTURE, DESIGN-SYSTEM, adr/, BACKLOG
 
 ## Data model
 No runtime data. Content is typed TypeScript modules in `src/content/`:
-- `Command { name: string; args?: string; summary: string; userOnly: boolean }`
-- `Feature { title: string; body: string; detailUrl?: string }`
-- `site { repoUrl, docsUrl, siteUrl, basePath, installCommands: string[], version }`
+- `Command { name: string; args: string; summary: string; userOnly: boolean }` (`args` is `''` when none)
+- `Rule { title: string; body: string; detailPath?: string }`
+- `site { repoUrl, installCommands, setupCommand, requirements }` and `repoFile(path)` for `blob/main` links
+- `proof { app, majorDefects, testsGreen, skillCount }`, `proofParagraphs`, and `limits` (keyed)
 
 ## Cross-cutting concerns
 - **Errors:** build fails on any type error, broken internal link or missing content field. Client scripts
@@ -71,7 +77,9 @@ No runtime data. Content is typed TypeScript modules in `src/content/`:
   workflow's built-in `GITHUB_TOKEN` with `pages: write` and `id-token: write` only.
 - **Logging:** none at runtime. CI logs are the record of every build.
 - **Security headers:** GitHub Pages can't set headers, so the page uses a `<meta>` Content-Security-Policy
-  (`default-src 'self'`, hashed inline scripts) and loads no third-party resources.
+  (`default-src 'self'`, with hashes for Astro's own scripts and styles) and loads no third-party resources.
+  Astro doesn't hash `is:inline` scripts, so they aren't used. A source test forbids them, along with inline
+  `style=` attributes and `innerHTML`.
 
 ## Conventions
 - Sections are `.astro` components with scoped styles; they read content from `src/content/`, never hard-code

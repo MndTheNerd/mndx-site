@@ -1,0 +1,55 @@
+---
+import { site } from '../content/site';
+---
+
+<header class="site-header">
+  <a class="skip" href="#main">
+    Skip to content
+  </a>
+  <div class="bar">
+    <span class="wordmark">MNDX</span>
+    <a class="github" href={site.repoUrl}>
+      GitHub
+    </a>
+  </div>
+</header>
+
+<style>
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: var(--space-3) var(--gutter);
+  }
+
+  .wordmark {
+    font-weight: 800;
+    font-size: var(--step-1);
+    letter-spacing: 0.02em;
+  }
+
+  .github {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-2);
+    font-weight: 600;
+  }
+
+  .skip {
+    position: absolute;
+    left: var(--gutter);
+    top: -10rem;
+    padding: var(--space-2) var(--space-3);
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    z-index: 1;
+  }
+
+  .skip:focus {
+    top: var(--space-2);
+  }
+</style>
