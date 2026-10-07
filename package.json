@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Landing page for MNDX, the Claude Code plugin that makes Claude build like a product team.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "engines": {
     "node": ">=22.12.0"
   },

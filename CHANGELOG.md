@@ -5,6 +5,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- An MIT license for the site's code, matching the mndx repo. The Overpass fonts keep their own SIL Open Font
+  License 1.1. ([006-add-mit-license](docs/chores/006-add-mit-license/))
+
 ### Fixed
 - The copy-button e2e tests raced a slow clipboard write on slower machines, which failed the first GitHub
   deploy's quality bar and blocked publishing. The tests now wait for each copy to finish before advancing the

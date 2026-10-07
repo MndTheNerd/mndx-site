@@ -41,4 +41,5 @@ Every push to `main` builds the site and publishes `dist/` to GitHub Pages throu
 
 ## License
 
-No license has been chosen yet, so all rights are reserved for now.
+[MIT](LICENSE) © mndthenerd. The Overpass fonts keep their own license, the SIL Open Font License 1.1 (they're
+served through the `@fontsource` packages).

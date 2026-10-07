@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "counter": 5,
+  "counter": 6,
   "active": null,
   "autopilot": null,
   "history": [
@@ -67,6 +67,14 @@
       "dir": "docs/fixes/005-copy-timer-e2e-test-races-the-clipboard",
       "outcome": "shipped",
       "at": "2026-10-07T14:30:32.463Z"
+    },
+    {
+      "id": "006-add-mit-license",
+      "kind": "chore",
+      "title": "add MIT license",
+      "dir": "docs/chores/006-add-mit-license",
+      "outcome": "shipped",
+      "at": "2026-10-07T15:25:29.108Z"
     }
   ]
 }
