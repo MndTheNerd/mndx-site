@@ -2,11 +2,7 @@
   "version": 1,
   "counter": 1,
   "active": null,
-  "autopilot": {
-    "active": true,
-    "goal": "finish 001-project-setup",
-    "grantedAt": "2026-10-07T08:54:02.866Z"
-  },
+  "autopilot": null,
   "history": [
     {
       "id": "001-project-setup",
@@ -15,6 +11,14 @@
       "dir": "docs/chores/001-project-setup",
       "outcome": "shipped",
       "at": "2026-10-07T09:21:29.472Z"
+    },
+    {
+      "id": "autopilot",
+      "kind": "autopilot",
+      "title": "finish 001-project-setup",
+      "outcome": "completed",
+      "note": "Setup chore shipped: Astro skeleton, quality bar green, CI + gated Pages deploy (0dcc1d6)",
+      "at": "2026-10-07T09:22:33.649Z"
     }
   ]
 }
