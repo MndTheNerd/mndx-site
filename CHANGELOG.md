@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- The Google Search Console verification file (`public/google8cec30e54942f93e.html`), so the site can be
+  verified and its sitemap submitted. Keep it in place: removing it un-verifies the property.
+  ([007-add-google-search-console-verification](docs/chores/007-add-google-search-console-verification/))
 - An MIT license for the site's code, matching the mndx repo. The Overpass fonts keep their own SIL Open Font
   License 1.1. ([006-add-mit-license](docs/chores/006-add-mit-license/))
 

@@ -10,3 +10,4 @@ docs/
 CHANGELOG.md
 CLAUDE.md
 tests/fixtures/
+public/google*.html

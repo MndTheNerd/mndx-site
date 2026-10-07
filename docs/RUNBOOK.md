@@ -81,6 +81,7 @@ A first Pages publish can take a few minutes to start serving. Retry each check 
   and create it again on the new HEAD (`git tag -d v1.0.0`, then `git tag -a v1.0.0 -m "v1.0.0"`), then push.
 
 ## After the first deploy (manual, the owner's accounts)
-- Submit `https://mndthenerd.github.io/mndx-site/sitemap-index.xml` in Google Search Console.
+- Submit `https://mndthenerd.github.io/mndx-site/sitemap-index.xml` in Google Search Console. The property is
+  verified by `public/google8cec30e54942f93e.html`: **don't delete that file**, or ownership is lost.
 - Check the share card in the X / LinkedIn / Facebook card validators.
 - Optional: set the mndx repo's About → Website to the site URL.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "counter": 6,
+  "counter": 7,
   "active": null,
   "autopilot": null,
   "history": [
@@ -75,6 +75,14 @@
       "dir": "docs/chores/006-add-mit-license",
       "outcome": "shipped",
       "at": "2026-10-07T15:25:29.108Z"
+    },
+    {
+      "id": "007-add-google-search-console-verification",
+      "kind": "chore",
+      "title": "add Google Search Console verification file",
+      "dir": "docs/chores/007-add-google-search-console-verification",
+      "outcome": "shipped",
+      "at": "2026-10-07T15:47:14.900Z"
     }
   ]
 }

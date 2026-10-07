@@ -1,48 +1,48 @@
 {
-  "at": "2026-10-07T15:24:42.961Z",
-  "fingerprint": "ba682d05031f849f24593723b7b1d7405f6e0e9931b7257f92a2fec663a1451b",
+  "at": "2026-10-07T15:46:40.263Z",
+  "fingerprint": "2a1cb39e5e43175e807e67ee30eed0843657c1fb3d91187409af69d8edd4ee8b",
   "results": [
     {
       "name": "Format",
       "command": "npm run format:check",
       "code": 0,
-      "ms": 2124,
+      "ms": 2177,
       "tail": "\n> mndx-site@1.0.0 format:check\n> prettier --check .\n\nChecking formatting...\nAll matched files use Prettier code style!"
     },
     {
       "name": "Lint",
       "command": "npm run lint",
       "code": 0,
-      "ms": 6180,
+      "ms": 6337,
       "tail": "\n> mndx-site@1.0.0 lint\n> eslint --max-warnings 0 ."
     },
     {
       "name": "Typecheck",
       "command": "npm run typecheck",
       "code": 0,
-      "ms": 11862,
-      "tail": "\n> mndx-site@1.0.0 typecheck\n> astro check\n\n18:23:58 [types] Generated 118ms\n18:23:58 [check] Getting diagnostics for Astro files in C:\\Users\\Mahmoud\\Desktop\\mndx-site...\nResult (45 files): \n- 0 errors\n- 0 warnings\n- 0 hints"
+      "ms": 11223,
+      "tail": "\n> mndx-site@1.0.0 typecheck\n> astro check\n\n18:45:58 [types] Generated 100ms\n18:45:58 [check] Getting diagnostics for Astro files in C:\\Users\\Mahmoud\\Desktop\\mndx-site...\nResult (45 files): \n- 0 errors\n- 0 warnings\n- 0 hints"
     },
     {
       "name": "Test",
       "command": "npm test",
       "code": 0,
-      "ms": 5393,
-      "tail": "\n> mndx-site@1.0.0 test\n> vitest run\n\n\n RUN  v5.0.3 C:/Users/Mahmoud/Desktop/mndx-site\n\n\n Test Files  7 passed (7)\n      Tests  36 passed (36)\n   Start at  18:24:09\n   Duration  843ms (transform 49%, import 33%, tests 14%, worker 4%)"
+      "ms": 5350,
+      "tail": "\n> mndx-site@1.0.0 test\n> vitest run\n\n\n RUN  v5.0.3 C:/Users/Mahmoud/Desktop/mndx-site\n\n\n Test Files  7 passed (7)\n      Tests  36 passed (36)\n   Start at  18:46:08\n   Duration  816ms (transform 55%, import 27%, tests 14%, worker 3%)"
     },
     {
       "name": "E2E",
       "command": "npm run test:e2e",
       "code": 0,
-      "ms": 27085,
-      "tail": "\n> mndx-site@1.0.0 test:e2e\n> playwright test\n\n\nRunning 57 tests using 6 workers\nbudget: total 74.6 KB (fonts 63.8 KB in 4 files, JS 1.4 KB)\n·························································\n  57 passed (25.4s)\n::notice title=🎭 Playwright Run Summary::  57 passed (25.4s)\n\n(node:31232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:45284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:24460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:39880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:40620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:45580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
+      "ms": 25173,
+      "tail": "\n> mndx-site@1.0.0 test:e2e\n> playwright test\n\n\nRunning 57 tests using 6 workers\nbudget: total 74.6 KB (fonts 63.8 KB in 4 files, JS 1.4 KB)\n·························································\n  57 passed (23.6s)\n::notice title=🎭 Playwright Run Summary::  57 passed (23.6s)\n\n(node:31036) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:35656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:45400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:45752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:36740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:38120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)"
     },
     {
       "name": "Build",
       "command": "npm run build",
       "code": 0,
-      "ms": 5584,
-      "tail": "\n> mndx-site@1.0.0 build\n> astro build\n\n18:24:41 [WARN] [config] Shiki syntax highlighting uses inline styles that are not compatible with Content Security Policy (CSP). Consider using Prism syntax highlighting instead, or disable CSP if Shiki is required.\n18:24:42 [types] Generated 126ms\n18:24:42 [build] output: \"static\"\n18:24:42 [build] mode: \"static\"\n18:24:42 [build] directory: C:\\Users\\Mahmoud\\Desktop\\mndx-site\\dist\\\n18:24:42 [build] Collecting build info...\n18:24:42 [build] ✓ Completed in 199ms.\n18:24:42 [build] Building static entrypoints...\n18:24:42 [vite] ✓ built in 415ms\n18:24:42 [vite] ✓ built in 57ms\n18:24:42 [build] Rearranging server assets...\n\n generating static routes \n18:24:42   ├─ /index.html (+46ms) \n18:24:42 ✓ Completed in 76ms.\n\n18:24:42 [build] ✓ Completed in 683ms.\n18:24:42 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\n18:24:42 [build] 1 page(s) built in 900ms\n18:24:42 [build] Complete!"
+      "ms": 5427,
+      "tail": "\n> mndx-site@1.0.0 build\n> astro build\n\n18:46:39 [WARN] [config] Shiki syntax highlighting uses inline styles that are not compatible with Content Security Policy (CSP). Consider using Prism syntax highlighting instead, or disable CSP if Shiki is required.\n18:46:39 [types] Generated 101ms\n18:46:39 [build] output: \"static\"\n18:46:39 [build] mode: \"static\"\n18:46:39 [build] directory: C:\\Users\\Mahmoud\\Desktop\\mndx-site\\dist\\\n18:46:39 [build] Collecting build info...\n18:46:39 [build] ✓ Completed in 143ms.\n18:46:39 [build] Building static entrypoints...\n18:46:40 [vite] ✓ built in 408ms\n18:46:40 [vite] ✓ built in 62ms\n18:46:40 [build] Rearranging server assets...\n\n generating static routes \n18:46:40   ├─ /index.html (+48ms) \n18:46:40 ✓ Completed in 79ms.\n\n18:46:40 [build] ✓ Completed in 670ms.\n18:46:40 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\n18:46:40 [build] 1 page(s) built in 828ms\n18:46:40 [build] Complete!"
     }
   ]
 }
