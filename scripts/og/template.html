@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      {{FONTS}}
+      {{TOKENS}}
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+      }
+
+      body {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 64px 80px 56px;
+        background: var(--board);
+        color: var(--ink);
+        font-family: var(--font-sans);
+      }
+
+      .wordmark {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        align-self: center;
+        margin: 0;
+        max-width: 15ch;
+        font-size: 84px;
+        font-weight: 800;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+      }
+
+      svg {
+        display: block;
+        width: 1040px;
+        height: auto;
+      }
+
+      .rail {
+        stroke: var(--route);
+        stroke-width: 6;
+      }
+
+      .post {
+        stroke: var(--ink);
+        stroke-width: 4;
+      }
+
+      .station {
+        fill: var(--ink);
+      }
+
+      .lamp {
+        fill: var(--stop);
+      }
+
+      .bar {
+        fill: var(--board);
+      }
+
+      .approve {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        fill: var(--ink-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wordmark">MNDX</div>
+    <h1>{{HEADLINE}}</h1>
+    <svg viewBox="0 0 1040 120" aria-hidden="true">
+      <line class="rail" x1="20" y1="96" x2="1020" y2="96" />
+      <line class="post" x1="145" y1="96" x2="145" y2="58" />
+      <circle class="lamp" cx="145" cy="44" r="18" />
+      <rect class="bar" x="135" y="40" width="20" height="8" />
+      <text class="approve" x="175" y="52">/mndx:approve</text>
+      <line class="post" x1="395" y1="96" x2="395" y2="58" />
+      <circle class="lamp" cx="395" cy="44" r="18" />
+      <rect class="bar" x="385" y="40" width="20" height="8" />
+      <text class="approve" x="425" y="52">/mndx:approve</text>
+      <circle class="station" cx="20" cy="96" r="14" />
+      <circle class="station" cx="270" cy="96" r="14" />
+      <circle class="station" cx="520" cy="96" r="14" />
+      <circle class="station" cx="770" cy="96" r="14" />
+      <circle class="station" cx="1020" cy="96" r="14" />
+    </svg>
+  </body>
+</html>

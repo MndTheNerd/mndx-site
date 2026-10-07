@@ -33,6 +33,20 @@ describe('source rules', () => {
     expect(offenders.map((file) => relative(ROOT, file))).toEqual([]);
   });
 
+  // Spec 003, NFR-2: raw HTML injection only for the escaped JSON-LD block in the layout.
+  it('uses set:html only for the serialized JSON-LD in Base.astro', () => {
+    // Every occurrence, in any form (spaces, quotes), must be the one allowed call.
+    const uses = sources.flatMap((file) => {
+      const text = readFileSync(file, 'utf8');
+      const path = relative(ROOT, file).replace(/\\/g, '/');
+      return [...text.matchAll(/set:html/g)].map((match) => {
+        const allowed = /^set:html=\{serializeJsonLd\(/.test(text.slice(match.index));
+        return `${path}:${allowed ? 'serializeJsonLd' : 'other'}`;
+      });
+    });
+    expect(uses).toEqual(['src/layouts/Base.astro:serializeJsonLd']);
+  });
+
   // Spec 002, NFR-A1: components take every color from the design tokens.
   it('uses no raw hex colors in components', () => {
     const offenders = sources

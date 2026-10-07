@@ -1,12 +1,12 @@
 ---
 import CopyCommand from './CopyCommand.astro';
 import TrackDiagram from './TrackDiagram.astro';
-import { site } from '../content/site';
+import { seo, site } from '../content/site';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="intro">
-    <h1 id="hero-title">Claude doesn't write code until you say go.</h1>
+    <h1 id="hero-title">{seo.headline}</h1>
     <p class="lead">
       MNDX is a Claude Code plugin that runs every change through spec, plan, build, verify and ship. Claude
       can't touch your code until you approve the spec and the plan, and it can't ship until your real tests

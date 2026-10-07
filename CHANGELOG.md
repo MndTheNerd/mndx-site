@@ -6,6 +6,13 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- Search and sharing ([003-seo-and-sharing](docs/features/003-seo-and-sharing/)):
+  - a share card (1200×630) for X, Slack and Discord, generated with `npm run og`
+  - Open Graph and Twitter tags
+  - schema.org `SoftwareApplication` data
+  - robots and theme-color meta
+
+  Lighthouse mobile scores 100 in all four categories.
 - The landing page ([002-landing-page](docs/features/002-landing-page/)):
   - a hero with the headline, the two install commands and copy buttons
   - a signal-box track diagram that walks a change through spec, plan, build, verify and ship, stopping at
@@ -21,3 +28,6 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Quality bar: Prettier, ESLint, `astro check`, Vitest, and Playwright with an axe WCAG 2.2 AA check in both
   color schemes.
 - CI for pull requests and a GitHub Pages deploy workflow that only publishes when the full quality bar passes.
+
+### Removed
+- `robots.txt` under `/mndx-site/`. Crawlers only read it at the domain root.

@@ -17,7 +17,9 @@ export default defineConfig({
         "default-src 'self'",
         "img-src 'self' data:",
         "font-src 'self'",
-        "connect-src 'none'",
+        // 'self', not 'none': Lighthouse fetches /robots.txt from inside the page, and 'none' blocks it
+        // (SEO 92 vs 100). The page itself makes no requests from script. See spec 003, NFR-2.
+        "connect-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
         "form-action 'none'",

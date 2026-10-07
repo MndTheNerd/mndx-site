@@ -11,6 +11,14 @@ const KB = 1024;
 const read = (assetUrl: string) => readFileSync(join(DIST, assetUrl.slice(BASE.length)));
 const gzipSize = (content: Buffer | string) => gzipSync(content).length;
 
+test('never requests the share image while loading the page (spec 003, AC6)', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', (request) => requests.push(request.url()));
+  await page.goto('./', { waitUntil: 'load' });
+  expect(requests.length).toBeGreaterThan(0);
+  expect(requests.filter((url) => url.endsWith('og.png'))).toEqual([]);
+});
+
 test('first load stays within 100 KB, with at most 5 KB of JavaScript', () => {
   const html = readFileSync(join(DIST, 'index.html'), 'utf8');
 
@@ -18,9 +26,10 @@ test('first load stays within 100 KB, with at most 5 KB of JavaScript', () => {
     (m) => m[1] ?? '',
   );
   const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((m) => m[1] ?? '');
-  const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(
-    (m) => m[1] ?? '',
-  );
+  // JSON-LD is data, not JavaScript: it counts in the HTML total but not against the JS budget.
+  const inlineScripts = [
+    ...html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/g),
+  ].map((m) => m[1] ?? '');
   const inlineStyles = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1] ?? '');
 
   const css = [...stylesheets.map((url) => read(url).toString('utf8')), ...inlineStyles].join('\n');

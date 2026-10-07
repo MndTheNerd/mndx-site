@@ -36,6 +36,11 @@ These exact commands must pass before anything ships:
 - E2E tests run against the production build (`astro preview` on port 4329), never the dev server. Run
   `npx playwright install chromium` once per machine and after upgrading `@playwright/test`.
 - Unit tests that touch `withBase` stub `BASE_URL` with `vi.stubEnv`, because Vitest doesn't apply Astro's `base`.
+- Changing the headline, `tokens.css`, the fonts or `scripts/og/*`: run `npm run format`, then `npm run og`
+  (Node ≥ 22.18), and commit `public/og.png` with `scripts/og/inputs.sha256`.
+- `src/content/site.ts` stays import-free, because `npm run og` loads it with Node's type stripping.
+- Stop any `astro preview` / `astro dev` you started before running `npm run test:e2e`. On Windows a running
+  server keeps `dist/` locked, and the e2e build fails with "webServer was not able to start".
 - Packages are pinned to exact versions. TypeScript stays on 6.0.x until `@astrojs/check` and
   `typescript-eslint` support 7.
 

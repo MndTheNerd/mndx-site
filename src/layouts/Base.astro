@@ -5,15 +5,16 @@ import '@fontsource/overpass/latin-800.css';
 import '@fontsource/overpass-mono/latin-400.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import { seo, themeColors } from '../content/site';
+import { serializeJsonLd, softwareApplication } from '../lib/structured-data';
 import { withBase } from '../lib/url';
 
-interface Props {
-  title: string;
-  description: string;
-}
-
-const { title, description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// The site is a single page: title, description and canonical are the home page's, from shared constants.
+// A second page would need per-page props and a per-page canonical first.
+const { title, description } = seo;
+// Absolute URLs follow `site` + `base` in astro.config.mjs (spec 003).
+const canonical = new URL(withBase(''), Astro.site).href;
+const image = new URL(withBase('og.png'), Astro.site).href;
 ---
 
 <!doctype html>
@@ -22,11 +23,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={themeColors.light} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={themeColors.dark} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <link rel="sitemap" href={withBase('sitemap-index.xml')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MNDX" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image:alt" content={seo.imageAlt} />
+
+    <script type="application/ld+json" set:html={serializeJsonLd(softwareApplication(canonical))} />
   </head>
   <body>
     <slot />
